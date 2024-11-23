@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .d{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #nav{
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <button id="mode" type="button" onclick="changeMode()">Dark</button>
+    <div class="d">
+        <h1 id="head">Sign up</h1>
+    </div>
+    <div class="d">
+        <a href="homePage.html"><button type="button">Home page</button></a>
+        <a href="addProd.html"><button type="button">Add product</button></a>
+        <a href="logIn.html"><button type="button">Log in</button></a>
+    </div>
+    <br>
+    <br>
+    <div id="nav">
+        <input id="un" type="text" placeholder="Username">
+        <input id="pass" type="password" placeholder="Password">
+        <button onclick="signUp()">Submit</button>
+    </div>
+</body>
+</html>
+<script>
+    function signUp(){
+        flag=false
+        let data=JSON.parse(localStorage.getItem("cred")) || []
+        console.log(data);
+        let un=document.getElementById("un")
+        let pass=document.getElementById("pass")
+        if(un.value==="" || pass.value===""){
+            alert("Required field missing!")
+        }
+        else{
+            for(let i=0;i<data.length;i++){
+                if(un.value==data[i].username){
+                    flag=true
+                    alert("User already exists!")
+                }
+            }
+            if(flag==false){
+                let obj={
+                    "username":un.value,
+                    "password":pass.value
+                }
+                data.push(obj)
+                localStorage.setItem("cred",JSON.stringify(data))
+                alert("Sign up successful!")
+            }
+        }
+    }
+    changeMode=()=>{
+        let body=document.querySelector("body")
+        let m=document.getElementById("mode")
+        let h=document.getElementById("head")
+        if(m.innerText=="Light"){
+            h.style.color="black"
+            body.style.backgroundColor="white"
+            m.innerText="Dark"
+        }
+        else{
+            h.style.color="white"
+            body.style.backgroundColor="black"
+            m.innerText="Light"
+        }
+    }
+</script>

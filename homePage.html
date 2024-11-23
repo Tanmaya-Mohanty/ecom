@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    let arr=[
+        {
+            "image":"https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/30d7afaa-343b-4439-b65d-bb544c65420e/revolution-7-road-running-shoes-dC34tK.png",
+            "name":"Shoe",
+            "price":500
+        },
+        {
+            "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzc_0GbSHg8YwNZO4e54HyV01ntQb5qKsJzA&s",
+            "name":"Bag",
+            "price":800
+        },
+        {
+            "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqQRt-usk6Z9tZfdp2srB0-SHu_554TSlJPg&s",
+            "name":"Watch",
+            "price":1000
+        },
+        {
+            "image":"https://www.furniturewallet.com/media/catalog/product/cache/23/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/0/8/08_22.jpg",
+            "name":"Chair",
+            "price":1500
+        },
+        {
+            "image":"https://media.istockphoto.com/id/173015527/photo/a-single-red-book-on-a-white-surface.jpg?s=612x612&w=0&k=20&c=AeKmdZvg2_bRY2Yct7odWhZXav8CgDtLMc_5_pjSItY=",
+            "name":"Book",
+            "price":500
+        },
+        {
+            "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSK8_BdPpbzhlPqJTQBXUofFwDAyrUceBwTg&s",
+            "name":"Mobile",
+            "price":15000
+        },
+    ]
+    let extra=JSON.parse(localStorage.getItem("prod")) || []
+    for(let i=0;i<extra.length;i++){
+        arr.push(extra[i])
+    }
+    let cart=[]
+    let body=document.querySelector("body")
+    let m=document.createElement("button")
+    m.id="mode"
+    m.innerText="Dark"
+    m.addEventListener("click",changeMode)
+    let h=document.createElement("div")
+    let head=document.createElement("h1")
+    head.innerText="Home page"
+    head.id="head"
+    h.style.display="flex"
+    h.style.justifyContent="space-evenly"
+    h.append(head)
+    let add=document.createElement("a")
+    let btn1=document.createElement("button")
+    let signUp=document.createElement("a")
+    let btn2=document.createElement("button")
+    let logIn=document.createElement("a")
+    let btn3=document.createElement("button")
+    let bar=document.createElement("div")
+    let b1=document.createElement("br")
+    let b2=document.createElement("br")
+    bar.style.display="flex"
+    bar.style.justifyContent="space-evenly"
+    add.href="addProd.html"
+    signUp.href="signUp.html"
+    logIn.href="logIn.html"
+    btn1.innerText="Add product"
+    btn2.innerText="Sign up"
+    btn3.innerText="Log in"
+    add.append(btn1)
+    signUp.append(btn2)
+    logIn.append(btn3)
+    bar.append(add,signUp,logIn)
+    let mainDiv=document.createElement("div")
+    mainDiv.style.border="1px soild teal"
+    mainDiv.style.display="flex"
+    mainDiv.style.flexWrap="wrap"
+    mainDiv.style.justifyContent="space-evenly"
+    for(let i=0;i<arr.length;i++){
+        let div=document.createElement("div")
+        div.class="div"
+        div.style.border="1px solid teal"
+        let x=document.createElement("img")
+        let y=document.createElement("p")
+        let z=document.createElement("p")
+        let btn=document.createElement("button")
+        btn.addEventListener("click",function (){
+            addToCart(arr[i])})
+        btn.innerText="Add to cart"
+        x.style.width="200px"
+        x.style.height="200px"
+        x.src=arr[i].image
+        y.innerText="Name: "+arr[i].name
+        z.innerText="Price: "+arr[i].price
+        div.append(x,y,z,btn)
+        mainDiv.append(div)
+    }
+    body.append(m,h,bar,b1,b2,mainDiv)
+    function addToCart(x){
+        cart.push(x)
+        console.log(cart);
+    }
+    function changeMode(){
+        let body=document.querySelector("body")
+        let m=document.getElementById("mode")
+        let h=document.getElementById("head")
+        const arr=document.getElementsByTagName("p")
+        if(m.innerText=="Light"){
+            h.style.color="black"
+            for(let i=0;i<arr.length;i++){
+                arr[i].style.color="black"
+            }
+            body.style.backgroundColor="white"
+            m.innerText="Dark"
+        }
+        else{
+            h.style.color="white"
+            for(let i=0;i<arr.length;i++){
+                arr[i].style.color="white"
+            }
+            body.style.backgroundColor="black"
+            m.innerText="Light"
+        }
+    }
+</script>
